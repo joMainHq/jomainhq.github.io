@@ -8,6 +8,7 @@ const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const slug = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
 const WAICON = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>';
+const fmt = n => Number.isInteger(n) ? String(n) : Number(n).toFixed(2);
 const wa = msg => `https://wa.me/${D.whatsapp}?text=${encodeURIComponent(msg)}`;
 const waBtn = (msg, label, cls="") => `<a class="btn wa ${cls}" href="${wa(msg)}" target="_blank" rel="noopener">${WAICON}<span>${esc(label)}</span></a>`;
 const levelName = id => (D.levels.find(l => l.id === id) || {}).name || id;
@@ -31,7 +32,7 @@ if (ftr) ftr.innerHTML = `<div class="site-foot"><div class="row">
 function card(p){
   return `<article class="pcard"><a class="shot" href="${link(p)}" tabindex="-1" aria-hidden="true"><img src="${BASE}${p.img[0]}" alt="" loading="lazy"></a>
     <div class="body">${tags(p)}<h3><a href="${link(p)}">${esc(p.name)}</a></h3><p>${esc(p.short)}</p>
-    <div class="foot"><span class="price">RM${p.price}</span><a class="btn ghost small" href="${link(p)}">Lihat produk</a></div></div></article>`;
+    <div class="foot"><span class="price">RM${fmt(p.price)}</span><a class="btn ghost small" href="${link(p)}">Lihat produk</a></div></div></article>`;
 }
 
 /* ---------- pages ---------- */
@@ -74,9 +75,10 @@ R.produk = () => {
   <div class="pdetail">
     <div class="phones">${p.img.map(s => `<div class="phone"><img src="${BASE}${s}" alt="Paparan ${esc(p.name)}"></div>`).join("")}</div>
     <div>${tags(p)}<h1>${esc(p.name)}</h1><p class="short">${esc(p.short)}</p>
-      <div class="buybox"><div class="row"><span class="price">RM${p.price}</span>${waBtn(p.wa, "Beli melalui WhatsApp")}</div>
+      <div class="buybox"><div class="row"><span class="price">RM${fmt(p.price)}</span><a class="btn wa" href="${BASE}bayar.html?item=${encodeURIComponent(p.id)}">🛒 Beli sekarang</a></div>
+      <p class="alt">Ada soalan? <a href="${wa(p.wa)}" target="_blank" rel="noopener">Tanya di WhatsApp</a>.</p>
       <p class="alt"><a href="${BASE}${p.game}?demo=1">🎮 Cuba demo percuma</a> &nbsp;|&nbsp; Sudah ada kod? <a href="${BASE}${p.game}">Buka permainan</a>.</p>
-      ${pass ? `<p class="alt">Atau dapatkan semua permainan ${esc(levelName(pass.level))} dengan <a href="${BASE}pakej.html">${esc(pass.name)}, dari RM${pass.founderPrice||pass.price}</a>.</p>` : ""}</div>
+      ${pass ? `<p class="alt">Atau dapatkan semua permainan ${esc(levelName(pass.level))} dengan <a href="${BASE}pakej.html">${esc(pass.name)}, dari RM${fmt(pass.founderPrice||pass.price)}</a>.</p>` : ""}</div>
       <h3>Apa yang ada di dalamnya</h3><ul class="feat">${p.features.map(f => `<li>${esc(f)}</li>`).join("")}</ul>
       <p>${esc(p.desc)}</p>
       <p class="crumb">${esc(p.type)}. Main terus di telefon, tablet atau komputer. Tiada aplikasi perlu dimuat turun.</p></div>
@@ -90,20 +92,55 @@ function passBlock(pass){
   return `<div class="pass"><div><h2>${esc(pass.name)}</h2>
     <p>Semua permainan ${esc(levelName(pass.level))} dalam satu kod, selama ${esc(pass.period)}. Permainan baharu yang ditambah dalam tempoh pas turut dimasukkan.</p>
     <ul>${items.map(p => `<li>${esc(p.name)}</li>`).join("")}</ul></div>
-    <div><div class="value">Nilai jika dibeli satu persatu: RM${total}</div>
-    <div class="price">RM${now}${pass.founderPrice ? `<s>RM${pass.price}</s>` : ""}</div>
+    <div><div class="value">Nilai jika dibeli satu persatu: RM${fmt(total)}</div>
+    <div class="price">RM${fmt(now)}${pass.founderPrice ? `<s>RM${fmt(pass.price)}</s>` : ""}</div>
     ${pass.founderNote ? `<div class="note">${esc(pass.founderNote)}</div>` : ""}
-    ${waBtn(pass.wa, `Beli ${pass.name}`)}</div></div>`;
+    <a class="btn wa" href="${BASE}bayar.html?item=${encodeURIComponent(pass.id)}" style="margin-top:14px">🛒 Beli ${esc(pass.name)}</a></div></div>`;
 }
 function bundleBlock(b){
   const items = b.items.map(prod).filter(Boolean), total = items.reduce((s,p) => s + p.price, 0);
   return `<div class="bundle"><div><h3>${esc(b.name)}</h3><p>${items.map(p => esc(p.name)).join(" dan ")}</p></div>
-    <div class="row" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap"><span class="price">RM${b.price}<s>RM${total}</s></span>${waBtn(b.wa,"Beli pakej")}</div></div>`;
+    <div class="row" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap"><span class="price">RM${fmt(b.price)}<s>RM${fmt(total)}</s></span><a class="btn wa" href="${BASE}bayar.html?item=${encodeURIComponent(b.id)}">🛒 Beli pakej</a></div></div>`;
 }
 R.demo = () => {
   $("#demos").innerHTML = D.products.map(p => `<article class="pcard"><a class="shot" href="${BASE}${p.game}?demo=1" tabindex="-1" aria-hidden="true"><img src="${BASE}${p.img[0]}" alt="" loading="lazy"></a>
     <div class="body">${tags(p)}<h3>${esc(p.name)}</h3><p>${esc(p.short)}</p>
-    <div class="foot"><a class="btn ink small" href="${BASE}${p.game}?demo=1">Cuba percuma</a><a class="btn ghost small" href="${link(p)}">RM${p.price}</a></div></div></article>`).join("");
+    <div class="foot"><a class="btn ink small" href="${BASE}${p.game}?demo=1">Cuba percuma</a><a class="btn ghost small" href="${link(p)}">RM${fmt(p.price)}</a></div></div></article>`).join("");
+};
+
+
+R.bayar = () => {
+  const items = [
+    ...D.passes.map(x => ({id:x.id, name:x.name, price:x.founderPrice||x.price, kind:"pas", level:x.level, note:"Semua permainan "+levelName(x.level)})),
+    ...D.bundles.map(x => ({id:x.id, name:x.name, price:x.price, kind:"pakej", note:x.items.map(i => (prod(i)||{}).name).join(" + ")})),
+    ...D.products.map(x => ({id:x.id, name:x.name, price:x.price, kind:"game", level:x.level, note:x.subject+", "+levelName(x.level)}))];
+  const pre = (new URLSearchParams(location.search).get("item")||"").split(",");
+  const sel = new Set(items.filter(i => pre.includes(i.id)).map(i => i.id));
+  let oid = sessionStorage.getItem("jm-oid");
+  if (!oid){ const d=new Date(), p=n=>String(n).padStart(2,"0"); oid = "JM"+String(d.getFullYear()).slice(2)+p(d.getMonth()+1)+p(d.getDate())+"-"+Math.random().toString(36).slice(2,6).toUpperCase(); sessionStorage.setItem("jm-oid",oid); }
+  const box = $("#order");
+  function covered(i){ return i.kind==="game" && [...sel].some(id => { const x=items.find(y=>y.id===id); return x && x.kind==="pas" && x.level===i.level; }); }
+  function draw(){
+    [...sel].forEach(id => { const i=items.find(y=>y.id===id); if (i && covered(i)) sel.delete(id); });
+    const list = items.map(i => { const c=covered(i); return `<label class="oitem ${sel.has(i.id)?"on":""} ${c?"off":""}"><input type="checkbox" data-id="${i.id}" ${sel.has(i.id)?"checked":""} ${c?"disabled":""}>
+      <span class="oname"><b>${esc(i.name)}</b><small>${c?"Sudah termasuk dalam pas":esc(i.note)}</small></span><span class="oprice">RM${fmt(i.price)}</span></label>`; }).join("");
+    const chosen = items.filter(i => sel.has(i.id)), total = chosen.reduce((s,i)=>s+i.price,0);
+    box.querySelector("#olist").innerHTML = list;
+    box.querySelector("#osum").innerHTML = chosen.length ? chosen.map(i=>`<div class="srow"><span>${esc(i.name)}</span><span>RM${fmt(i.price)}</span></div>`).join("")+`<div class="srow tot"><span>Jumlah</span><span>RM${total.toFixed(2)}</span></div>` : `<p class="muted">Belum ada produk dipilih.</p>`;
+    box.querySelectorAll(".amt").forEach(e => e.textContent = "RM"+total.toFixed(2));
+  }
+  box.addEventListener("change", e => { const c=e.target.closest("input[data-id]"); if(!c) return; c.checked?sel.add(c.dataset.id):sel.delete(c.dataset.id); draw(); });
+  box.querySelector("#oid").textContent = oid;
+  box.querySelector("#osend").addEventListener("click", () => {
+    const name=$("#oname").value.trim(), phone=$("#ophone").value.trim(), email=$("#oemail").value.trim(), err=$("#oerr");
+    const chosen = items.filter(i => sel.has(i.id)), total = chosen.reduce((s,i)=>s+i.price,0);
+    if (!chosen.length) return err.textContent="Sila pilih sekurang-kurangnya satu produk.";
+    if (!name || phone.replace(/\D/g,"").length<9) return err.textContent="Sila isi nama dan nombor telefon yang betul.";
+    err.textContent="";
+    const msg = `Salam JoMain, saya dah bayar 😊\n\nNo. pesanan: ${oid}\nNama: ${name}\nTelefon: ${phone}${email?"\nEmel: "+email:""}\n\nProduk:\n${chosen.map(i=>"• "+i.name+" (RM"+fmt(i.price)+")").join("\n")}\n\nJumlah dibayar: RM${total.toFixed(2)}\n\nResit pembayaran saya lampirkan.`;
+    window.open(wa(msg), "_blank");
+  });
+  draw();
 };
 
 R.pakej = () => {

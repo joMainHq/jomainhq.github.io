@@ -21,7 +21,7 @@ window.CK = {
       subject: "Matematik",
       level: "tahun1",
       type: "Permainan arked",
-      price: 25,
+      price: 9.9,
       isNew: true,
       game: "games/arked.html",
       img: ["assets/img/ark-1.webp", "assets/img/ark-2.webp"],
@@ -33,7 +33,7 @@ window.CK = {
         "Tahap tambah hingga 10 dan hingga 20",
         "Skor, kombo dan rekod terbaik untuk dikalahkan"
       ],
-      wa: "Salam, saya nak beli JoMain Arked: Tambah (RM25)."
+      wa: "Salam, saya nak beli JoMain Arked: Tambah (RM9.90)."
     },
     {
       id: "jawi",
@@ -41,7 +41,7 @@ window.CK = {
       subject: "Jawi",
       level: "tahun1",
       type: "Permainan kuiz",
-      price: 25,
+      price: 9.9,
       isNew: true,
       game: "games/jawi.html",
       img: ["assets/img/jwi-1.webp", "assets/img/jwi-2.webp"],
@@ -53,7 +53,7 @@ window.CK = {
         "Bina perkataan dengan menyusun huruf dari kanan ke kiri",
         "36 perkataan Islamik dengan gambar"
       ],
-      wa: "Salam, saya nak beli JoMain Jawi (RM25)."
+      wa: "Salam, saya nak beli JoMain Jawi (RM9.90)."
     },
     {
       id: "suku-kata",
@@ -61,7 +61,7 @@ window.CK = {
       subject: "Bahasa Melayu",
       level: "tahun1",
       type: "Permainan kuiz",
-      price: 19,
+      price: 9.9,
       game: "games/suku-kata.html",
       img: ["assets/img/skc-1.webp", "assets/img/skc-2.webp"],
       short: "Bina perkataan daripada suku kata dan pilih ejaan yang betul.",
@@ -72,7 +72,7 @@ window.CK = {
         "Pilih ejaan betul antara ejaan yang mengelirukan",
         "Pilih unit untuk latihan mengikut pelajaran di sekolah"
       ],
-      wa: "Salam, saya nak beli JoMain Suku Kata (RM19)."
+      wa: "Salam, saya nak beli JoMain Suku Kata (RM9.90)."
     },
     {
       id: "matematik",
@@ -80,7 +80,7 @@ window.CK = {
       subject: "Matematik",
       level: "tahun1",
       type: "Permainan kuiz",
-      price: 19,
+      price: 9.9,
       game: "games/matematik.html",
       img: ["assets/img/mtc-1.webp", "assets/img/mtc-2.webp"],
       short: "Nombor, tambah, tolak, wang, masa, pecahan dan bentuk.",
@@ -91,7 +91,7 @@ window.CK = {
         "Wang, masa dan waktu, pecahan",
         "Bentuk 2D dan 3D"
       ],
-      wa: "Salam, saya nak beli JoMain Matematik (RM19)."
+      wa: "Salam, saya nak beli JoMain Matematik (RM9.90)."
     },
     {
       id: "sains",
@@ -99,7 +99,7 @@ window.CK = {
       subject: "Sains",
       level: "tahun1",
       type: "Permainan kuiz",
-      price: 19,
+      price: 9.9,
       game: "games/sains.html",
       img: ["assets/img/snc-1.webp", "assets/img/snc-2.webp"],
       short: "Benda hidup, pancaindera, haiwan, tumbuhan, magnet dan penyerapan.",
@@ -110,7 +110,7 @@ window.CK = {
         "Penutup badan, tempat hidup dan cara haiwan bergerak",
         "Bahagian tumbuhan, magnet dan penyerapan"
       ],
-      wa: "Salam, saya nak beli JoMain Sains (RM19)."
+      wa: "Salam, saya nak beli JoMain Sains (RM9.90)."
     },
     {
       id: "english",
@@ -118,7 +118,7 @@ window.CK = {
       subject: "English",
       level: "tahun1",
       type: "Permainan kuiz",
-      price: 19,
+      price: 9.9,
       game: "games/english.html",
       img: ["assets/img/eng-1.webp", "assets/img/eng-2.webp"],
       short: "Vocabulary, spelling dan phonics dengan gambar.",
@@ -129,7 +129,7 @@ window.CK = {
         "Phonics: first letter, begins with, rhyming words",
         "Colours dan numbers one to ten"
       ],
-      wa: "Salam, saya nak beli JoMain English (RM19)."
+      wa: "Salam, saya nak beli JoMain English (RM9.90)."
     },
     {
       id: "prasekolah",
@@ -137,7 +137,7 @@ window.CK = {
       subject: "Huruf dan nombor",
       level: "prasekolah",
       type: "Permainan kuiz",
-      price: 19,
+      price: 9.9,
       game: "games/prasekolah.html",
       img: ["assets/img/pra-1.webp", "assets/img/pra-2.webp"],
       short: "Kenal huruf, nombor, bentuk dan warna untuk umur 4 hingga 6 tahun.",
@@ -148,7 +148,7 @@ window.CK = {
         "Kira, padankan dan susun nombor hingga 20",
         "Kenal bentuk dan warna"
       ],
-      wa: "Salam, saya nak beli JoMain Prasekolah (RM19)."
+      wa: "Salam, saya nak beli JoMain Prasekolah (RM9.90)."
     }
   ],
 
@@ -157,8 +157,8 @@ window.CK = {
       id: "pakej-bm-matematik",
       name: "Pakej BM + Matematik",
       items: ["suku-kata", "matematik"],
-      price: 29,
-      wa: "Salam, saya nak beli Pakej BM + Matematik (RM29)."
+      price: 14.9,
+      wa: "Salam, saya nak beli Pakej BM + Matematik (RM14.90)."
     }
   ],
 
@@ -168,10 +168,10 @@ window.CK = {
       name: "Pas Tahun 1",
       level: "tahun1",
       price: 69,
-      founderPrice: 49,
-      founderNote: "Harga pengasas untuk 30 pembeli pertama. Sah sehingga 31 Disember 2027.",
+      founderPrice: 29.9,
+      founderNote: "Harga pengenalan untuk masa terhad. Sah sehingga 31 Disember 2027.",
       period: "1 tahun",
-      wa: "Salam, saya nak beli Pas Tahun 1 harga pengasas (RM49)."
+      wa: "Salam, saya nak beli Pas Tahun 1 harga pengenalan (RM29.90)."
     }
   ],
 

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tempah dan bayar: JoMain</title>
+<meta name="description" content="Tempah dan bayar permainan JoMain dengan DuitNow QR.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧩</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<!-- Cloudflare Web Analytics (tidak dikira untuk pemilik) -->
+<script>(function(){try{var q=location.search;if(/[?&]saya=1\b/.test(q)){localStorage.setItem("jm-owner","1");alert("Peranti ini tidak akan dikira dalam statistik JoMain.");}if(/[?&]saya=0\b/.test(q)){localStorage.removeItem("jm-owner");}if(localStorage.getItem("jm-owner")==="1")return;}catch(e){}var s=document.createElement("script");s.defer=true;s.src="https://static.cloudflareinsights.com/beacon.min.js";s.setAttribute("data-cf-beacon",'{"token": "8bb16f8b55ca4e7fabb2da018b9d0c80"}');document.head.appendChild(s);})();</script>
+</head>
+<body data-page="bayar" data-base="">
+<div class="wrap">
+<header id="hdr"></header>
+<main>
+<section style="padding-top:20px" id="order">
+  <h1>Tempah dan bayar</h1>
+  <p class="sub">Pilih produk, isi maklumat anda, bayar dengan DuitNow QR, kemudian hantar resit melalui WhatsApp. Kod akses akan dihantar selepas bayaran disahkan.</p>
+  <div class="ogrid">
+    <div>
+      <div class="ostep"><h2><i>1</i>Pilih produk</h2><div id="olist"></div></div>
+      <div class="ostep"><h2><i>2</i>Maklumat anda</h2>
+        <label class="field"><span>Nama</span><input id="oname" autocomplete="name" placeholder="Nama penuh"></label>
+        <label class="field"><span>No. telefon (WhatsApp)</span><input id="ophone" type="tel" autocomplete="tel" placeholder="01X-XXX XXXX"></label>
+        <label class="field"><span>Emel (pilihan)</span><input id="oemail" type="email" autocomplete="email" placeholder="untuk resit"></label>
+      </div>
+    </div>
+    <div>
+      <div class="ostep"><h2><i>3</i>Ringkasan</h2><div id="osum"></div>
+        <p class="ohelp">No. pesanan: <span class="ref" id="oid"></span></p></div>
+      <div class="ostep qrbox"><h2 style="justify-content:center"><i>4</i>Bayar <span class="amt"></span></h2>
+        <img src="assets/img/duitnow-qr.png" alt="DuitNow QR untuk pembayaran JoMain">
+        <p><a class="btn ghost small" href="assets/img/duitnow-qr.png" download="JoMain-DuitNow-QR.png">Simpan QR</a></p>
+        <p class="ohelp">Imbas dengan aplikasi bank atau e-wallet anda. Masukkan jumlah <b class="amt"></b> dan tulis no. pesanan dalam ruangan rujukan. Di telefon? Tekan "Simpan QR", kemudian buka gambar itu dalam aplikasi bank anda.</p></div>
+      <div class="ostep"><h2><i>5</i>Hantar resit</h2>
+        <p class="ohelp" style="margin:0 0 10px">Selepas bayar, tekan butang di bawah dan lampirkan tangkap layar resit dalam WhatsApp.</p>
+        <div id="oerr" aria-live="polite"></div>
+        <button class="btn wa" id="osend" type="button">Saya dah bayar: hantar resit di WhatsApp</button>
+        <p class="ohelp">Kod akses dan resit akan dihantar melalui WhatsApp selepas bayaran disahkan, biasanya pada hari yang sama.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+<footer id="ftr"></footer>
+</div>
+<script src="data/products.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>

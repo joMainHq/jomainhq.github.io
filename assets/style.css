@@ -200,3 +200,26 @@ article.post .meta{color:var(--ink-soft);font-size:16px;margin:0 0 20px}
   .pass .price{font-size:50px}
 }
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+/* ---------- order page ---------- */
+.ogrid{display:grid;grid-template-columns:1.2fr 1fr;gap:30px;align-items:start}
+.ostep{background:var(--card);border:2px solid var(--ink);border-radius:20px;padding:20px;margin-bottom:20px}
+.ostep h2{font-size:24px;margin:0 0 12px;display:flex;align-items:center;gap:10px}
+.ostep h2 i{font-style:normal;display:inline-grid;place-items:center;width:34px;height:34px;border-radius:9px;background:var(--tile);color:var(--tile-ink);border:2px solid var(--tile-edge);font-size:18px}
+.oitem{display:flex;align-items:center;gap:12px;border:2px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:10px;cursor:pointer}
+.oitem.on{border-color:var(--ink);background:var(--slot)}
+.oitem.off{opacity:.5;cursor:default}
+.oitem input{width:22px;height:22px;accent-color:#1F3A93;flex:none}
+.oname{flex:1}.oname b{display:block;font-family:"Fredoka",sans-serif;font-size:18px}.oname small{color:var(--ink-soft);font-size:14px}
+.oprice{font-family:"Fredoka",sans-serif;font-weight:700;font-size:18px;white-space:nowrap}
+.field{display:block;margin-bottom:12px}.field span{display:block;font-family:"Fredoka",sans-serif;font-weight:600;font-size:16px;margin-bottom:4px}
+.field input{width:100%;font:inherit;font-size:17px;padding:12px 14px;border:2px solid var(--ink);border-radius:12px;background:var(--paper);color:var(--ink)}
+.srow{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:16px}
+.srow.tot{font-family:"Fredoka",sans-serif;font-weight:700;font-size:22px;border-bottom:none;padding-top:10px}
+.muted{color:var(--ink-soft)}
+.qrbox{text-align:center}.qrbox img{width:min(300px,80%);margin:8px auto;border-radius:16px;box-shadow:0 8px 24px rgba(20,32,74,.18)}
+.ref{display:inline-block;font-family:"Fredoka",sans-serif;font-weight:700;font-size:20px;background:var(--tile);color:var(--tile-ink);border-radius:10px;padding:4px 12px;letter-spacing:.04em}
+.ohelp{font-size:15px;color:var(--ink-soft);margin:10px 0 0}
+#oerr{color:var(--bad);font-weight:700;min-height:22px;margin:8px 0}
+#osend{width:100%}
+@media (max-width:860px){.ogrid{grid-template-columns:1fr}}
