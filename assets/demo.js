@@ -30,10 +30,10 @@
   if(document.body) addBar(); else document.addEventListener("DOMContentLoaded",addBar);
   function showEnd(){
     if(document.querySelector(".jm-demo-end")) return;
-    var wa="https://wa.me/601163927569?text="+encodeURIComponent("Salam, saya dah cuba demo "+name+" dan berminat untuk beli.");
+    var rc=(window.jmRef&&window.jmRef())||""; var wa="https://wa.me/601163927569?text="+encodeURIComponent("Salam, saya dah cuba demo "+name+" dan berminat untuk beli."+(rc?"\n\nRujukan: "+rc:""));
     var d=document.createElement("div"); d.className="jm-demo-end";
     d.innerHTML='<div class="box"><div style="font-size:44px">🌟</div><h2>Demo tamat!</h2><p>Anak suka '+name+'? Dapatkan permainan penuh dengan soalan tanpa had.</p>'+
-      '<a class="wa" href="../bayar.html?item='+id+'">🛒 Beli sekarang, RM9.90</a>'+'<a class="gh" href="'+wa+'" target="_blank" rel="noopener">Tanya di WhatsApp</a>'+
+      '<a class="wa" href="../bayar.html?item='+id+(rc?'&ref='+rc:'')+'">🛒 Beli sekarang, RM9.90</a>'+'<a class="gh" href="'+wa+'" target="_blank" rel="noopener">Tanya di WhatsApp</a>'+
       '<a class="ink" href="../produk.html?id='+id+'">Lihat harga dan maklumat</a>'+
       '<a class="gh" href="../demo.html">Cuba permainan lain</a></div>';
     document.body.appendChild(d);

@@ -9,7 +9,8 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":
 const slug = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
 const WAICON = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>';
 const fmt = n => Number.isInteger(n) ? String(n) : Number(n).toFixed(2);
-const wa = msg => `https://wa.me/${D.whatsapp}?text=${encodeURIComponent(msg)}`;
+const refCode = () => (window.jmRef ? window.jmRef() : "");
+const wa = msg => `https://wa.me/${D.whatsapp}?text=${encodeURIComponent(msg + (refCode() && !/Rujukan:/.test(msg) ? `\n\nRujukan: ${refCode()}` : ""))}`;
 const waBtn = (msg, label, cls="") => `<a class="btn wa ${cls}" href="${wa(msg)}" target="_blank" rel="noopener">${WAICON}<span>${esc(label)}</span></a>`;
 const levelName = id => (D.levels.find(l => l.id === id) || {}).name || id;
 const prod = id => D.products.find(p => p.id === id);
@@ -18,6 +19,7 @@ const tags = p => `<div class="tags">${p.isNew ? '<span class="tag new">Baharu</
 
 /* ---------- header & footer ---------- */
 const NAV = [["index.html","Utama","home"],["kedai.html","Kedai","kedai"],["demo.html","Cuba percuma","demo"],["pakej.html","Pakej dan pas","pakej"],["pusat.html","Pusat tuisyen","pusat"],["sumber.html","Sumber percuma","sumber"],["cara-beli.html","Cara beli","carabeli"]];
+const FOOT_EXTRA = [["rakan.html","Program rakan"]];
 const hdr = $("#hdr");
 if (hdr) hdr.innerHTML = `<div class="site-head"><a class="brand" href="${BASE}index.html" aria-label="JoMain, laman utama"><i>Jo</i>Main</a>
   ${waBtn("Salam, saya ada pertanyaan tentang JoMain.","WhatsApp kami","small")}</div>
@@ -25,7 +27,7 @@ if (hdr) hdr.innerHTML = `<div class="site-head"><a class="brand" href="${BASE}i
 const ftr = $("#ftr");
 if (ftr) ftr.innerHTML = `<div class="site-foot"><div class="row">
   <div><b>JoMain</b><br>Main sambil belajar. Permainan belajar untuk kanak-kanak Malaysia.<br>WhatsApp ${esc(D.whatsappDisplay)}</div>
-  <nav aria-label="Pautan bawah">${NAV.slice(1).map(([h,t]) => `<a href="${BASE}${h}">${t}</a>`).join("")}</nav></div>
+  <nav aria-label="Pautan bawah">${[...NAV.slice(1),...FOOT_EXTRA].map(([h,t]) => `<a href="${BASE}${h}">${t}</a>`).join("")}</nav></div>
   <p>© ${new Date().getFullYear()} JoMain</p></div>`;
 
 /* ---------- product card ---------- */
@@ -131,13 +133,14 @@ R.bayar = () => {
   }
   box.addEventListener("change", e => { const c=e.target.closest("input[data-id]"); if(!c) return; c.checked?sel.add(c.dataset.id):sel.delete(c.dataset.id); draw(); });
   box.querySelector("#oid").textContent = oid;
+  if (refCode()) { const r=box.querySelector("#oref"); if (r) { r.hidden=false; r.querySelector("b").textContent=refCode(); } }
   box.querySelector("#osend").addEventListener("click", () => {
     const name=$("#oname").value.trim(), phone=$("#ophone").value.trim(), email=$("#oemail").value.trim(), err=$("#oerr");
     const chosen = items.filter(i => sel.has(i.id)), total = chosen.reduce((s,i)=>s+i.price,0);
     if (!chosen.length) return err.textContent="Sila pilih sekurang-kurangnya satu produk.";
     if (!name || phone.replace(/\D/g,"").length<9) return err.textContent="Sila isi nama dan nombor telefon yang betul.";
     err.textContent="";
-    const msg = `Salam JoMain, saya dah bayar 😊\n\nNo. pesanan: ${oid}\nNama: ${name}\nTelefon: ${phone}${email?"\nEmel: "+email:""}\n\nProduk:\n${chosen.map(i=>"• "+i.name+" (RM"+fmt(i.price)+")").join("\n")}\n\nJumlah dibayar: RM${total.toFixed(2)}\n\nResit pembayaran saya lampirkan.`;
+    const msg = `Salam JoMain, saya dah bayar 😊\n\nNo. pesanan: ${oid}\nNama: ${name}\nTelefon: ${phone}${email?"\nEmel: "+email:""}\n\nProduk:\n${chosen.map(i=>"• "+i.name+" (RM"+fmt(i.price)+")").join("\n")}\n\nJumlah dibayar: RM${total.toFixed(2)}\n\nResit pembayaran saya lampirkan.${refCode()?`\n\nRujukan: ${refCode()}`:""}`;
     window.open(wa(msg), "_blank");
   });
   draw();

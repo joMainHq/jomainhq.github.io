@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="assets/style.css">
 <!-- Cloudflare Web Analytics (tidak dikira untuk pemilik) -->
 <script>(function(){try{var q=location.search;if(/[?&]saya=1\b/.test(q)){localStorage.setItem("jm-owner","1");alert("Peranti ini tidak akan dikira dalam statistik JoMain.");}if(/[?&]saya=0\b/.test(q)){localStorage.removeItem("jm-owner");}if(localStorage.getItem("jm-owner")==="1")return;}catch(e){}var s=document.createElement("script");s.defer=true;s.src="https://static.cloudflareinsights.com/beacon.min.js";s.setAttribute("data-cf-beacon",'{"token": "8bb16f8b55ca4e7fabb2da018b9d0c80"}');document.head.appendChild(s);})();</script>
+<script src="assets/ref.js"></script>
 </head>
 <body data-page="bayar" data-base="">
 <div class="wrap">
@@ -31,7 +32,7 @@
     </div>
     <div>
       <div class="ostep"><h2><i>3</i>Ringkasan</h2><div id="osum"></div>
-        <p class="ohelp">No. pesanan: <span class="ref" id="oid"></span></p></div>
+        <p class="ohelp">No. pesanan: <span class="ref" id="oid"></span></p><p class="ohelp" id="oref" hidden>Dirujuk oleh: <b></b></p></div>
       <div class="ostep qrbox"><h2 style="justify-content:center"><i>4</i>Bayar <span class="amt"></span></h2>
         <img src="assets/img/duitnow-qr.png" alt="DuitNow QR untuk pembayaran JoMain">
         <p><a class="btn ghost small" href="assets/img/duitnow-qr.png" download="JoMain-DuitNow-QR.png">Simpan QR</a></p>
